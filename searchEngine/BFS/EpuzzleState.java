@@ -29,7 +29,7 @@ public class EpuzzleState extends SearchState {
    * toString
    */
     public String toString() {
-        String output = "Current State:";
+        String output = "Current State: \n";
         output += seed[0][0]+" "+seed[0][1]+" "+seed[0][2]+"\n";
         output += seed[1][0]+" "+seed[1][1]+" "+seed[1][2]+"\n";
         output += seed[2][0]+" "+seed[2][1]+" "+seed[2][2]+"\n";
@@ -55,9 +55,18 @@ public class EpuzzleState extends SearchState {
         ArrayList<EpuzzleState> eslis = new ArrayList<EpuzzleState>(); 
         ArrayList<SearchState> slis = new ArrayList<SearchState>();
 
-        if (seed[0][0] == 0){
+        if (currentState[0][0] == 0){
+            int[][] newSeed = new int[3][3];
+            System.arraycopy(currentState, 0, newSeed, 0, seed.length);
+            newSeed[0][0] = currentState[0][1];
+            newSeed[0][1] = 0;
+            eslis.add(new EpuzzleState(newSeed));
         }
 
+        for (EpuzzleState es : eslis)
+            slis.add((SearchState) es);
+
+        return slis;
     }
 
 }

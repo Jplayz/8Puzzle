@@ -1,11 +1,11 @@
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Arrays;
 
 /**
 * EpuzzleState.java
 * State in the Epuzzle problem
 */
-
 public class EpuzzleState extends SearchState {
     private int[][] seed;
 
@@ -45,8 +45,13 @@ public class EpuzzleState extends SearchState {
     public boolean goalPredicate(Search searcher) {
         EpuzzleSearch jsearcher = (EpuzzleSearch) searcher;
         int[][] tar = jsearcher.getTarget(); // get target 
-        return (seed == tar);
+        return (Arrays.deepEquals(seed, tar));
     }
+  /**
+   * getSuccessors
+   * 
+   * @param searcher - the current search
+   */
 
     public ArrayList<SearchState> getSuccessors(Search searcher){
         EpuzzleSearch eSearch = (EpuzzleSearch) searcher;
@@ -55,6 +60,7 @@ public class EpuzzleState extends SearchState {
         ArrayList<EpuzzleState> eslis = new ArrayList<EpuzzleState>(); 
         ArrayList<SearchState> slis = new ArrayList<SearchState>();
 
+        // Moves 0,0 right
         if (currentState[0][0] == 0){
             int[][] newSeed = new int[3][3];
             System.arraycopy(currentState, 0, newSeed, 0, seed.length);
@@ -63,10 +69,203 @@ public class EpuzzleState extends SearchState {
             eslis.add(new EpuzzleState(newSeed));
         }
 
+        // Moves 0,0 down
+        if (currentState[0][0] == 0){
+            int[][] newSeed = new int[3][3];
+            System.arraycopy(currentState, 0, newSeed, 0, seed.length);
+            newSeed[0][0] = currentState[1][0];
+            newSeed[1][0] = 0;
+            eslis.add(new EpuzzleState(newSeed));
+        }
+
+        // Moves 0,1 right
+        if (currentState[0][1] == 0){
+            int[][] newSeed = new int[3][3];
+            System.arraycopy(currentState, 0, newSeed, 0, seed.length);
+            newSeed[0][1] = currentState[0][2];
+            newSeed[0][2] = 0;
+            eslis.add(new EpuzzleState(newSeed));
+        }
+
+        // Moves 0,2
+        if (currentState[0][1] == 0){
+            int[][] newSeed = new int[3][3];
+            System.arraycopy(currentState, 0, newSeed, 0, seed.length);
+            newSeed[0][1] = currentState[0][0];
+            newSeed[0][0] = 0;
+            eslis.add(new EpuzzleState(newSeed));
+        }
+
+        if (currentState[0][1] == 0){
+            int[][] newSeed = new int[3][3];
+            System.arraycopy(currentState, 0, newSeed, 0, seed.length);
+            newSeed[0][1] = currentState[0][2];
+            newSeed[0][2] = 0;
+            eslis.add(new EpuzzleState(newSeed));
+        }
+
+        if (currentState[0][2] == 0){
+            int[][] newSeed = new int[3][3];
+            System.arraycopy(currentState, 0, newSeed, 0, seed.length);
+            newSeed[0][2] = currentState[1][2];
+            newSeed[1][2] = 0;
+            eslis.add(new EpuzzleState(newSeed));
+        }
+
+        if (currentState[0][2] == 0){
+            int[][] newSeed = new int[3][3];
+            System.arraycopy(currentState, 0, newSeed, 0, seed.length);
+            newSeed[0][2] = currentState[0][1];
+            newSeed[0][1] = 0;
+            eslis.add(new EpuzzleState(newSeed));
+        }
+
+        if (currentState[1][0] == 0){
+            int[][] newSeed = new int[3][3];
+            System.arraycopy(currentState, 0, newSeed, 0, seed.length);
+            newSeed[1][0] = currentState[0][0];
+            newSeed[0][0] = 0;
+            eslis.add(new EpuzzleState(newSeed));
+        }
+
+        if (currentState[1][0] == 0){
+            int[][] newSeed = new int[3][3];
+            System.arraycopy(currentState, 0, newSeed, 0, seed.length);
+            newSeed[1][0] = currentState[2][0];
+            newSeed[2][0] = 0;
+            eslis.add(new EpuzzleState(newSeed));
+        }
+
+        if (currentState[1][0] == 0){
+            int[][] newSeed = new int[3][3];
+            System.arraycopy(currentState, 0, newSeed, 0, seed.length);
+            newSeed[1][0] = currentState[1][1];
+            newSeed[1][1] = 0;
+            eslis.add(new EpuzzleState(newSeed));
+        }
+
+        if (currentState[1][1] == 0){
+            int[][] newSeed = new int[3][3];
+            System.arraycopy(currentState, 0, newSeed, 0, seed.length);
+            newSeed[1][1] = currentState[1][2];
+            newSeed[1][2] = 0;
+            eslis.add(new EpuzzleState(newSeed));
+        }
+
+        if (currentState[1][1] == 0){
+            int[][] newSeed = new int[3][3];
+            System.arraycopy(currentState, 0, newSeed, 0, seed.length);
+            newSeed[1][1] = currentState[0][1];
+            newSeed[0][1] = 0;
+            eslis.add(new EpuzzleState(newSeed));
+        }
+
+        if (currentState[1][1] == 0){
+            int[][] newSeed = new int[3][3];
+            System.arraycopy(currentState, 0, newSeed, 0, seed.length);
+            newSeed[1][1] = currentState[1][0];
+            newSeed[1][2] = 0;
+            eslis.add(new EpuzzleState(newSeed));
+        }
+
+        if (currentState[1][1] == 0){
+            int[][] newSeed = new int[3][3];
+            System.arraycopy(currentState, 0, newSeed, 0, seed.length);
+            newSeed[1][1] = currentState[2][1];
+            newSeed[2][1] = 0;
+            eslis.add(new EpuzzleState(newSeed));
+        }
+
+        if (currentState[1][2] == 0){
+            int[][] newSeed = new int[3][3];
+            System.arraycopy(currentState, 0, newSeed, 0, seed.length);
+            newSeed[1][2] = currentState[2][2];
+            newSeed[2][2] = 0;
+            eslis.add(new EpuzzleState(newSeed));
+        }
+
+        if (currentState[1][2] == 0){
+            int[][] newSeed = new int[3][3];
+            System.arraycopy(currentState, 0, newSeed, 0, seed.length);
+            newSeed[1][2] = currentState[0][2];
+            newSeed[0][2] = 0;
+            eslis.add(new EpuzzleState(newSeed));
+        }
+        if (currentState[1][2] == 0){
+            int[][] newSeed = new int[3][3];
+            System.arraycopy(currentState, 0, newSeed, 0, seed.length);
+            newSeed[1][2] = currentState[1][1];
+            newSeed[1][1] = 0;
+            eslis.add(new EpuzzleState(newSeed));
+        }
+
+        if (currentState[2][0] == 0){
+            int[][] newSeed = new int[3][3];
+            System.arraycopy(currentState, 0, newSeed, 0, seed.length);
+            newSeed[2][0] = currentState[1][0];
+            newSeed[1][0] = 0;
+            eslis.add(new EpuzzleState(newSeed));
+        }
+
+        if (currentState[2][0] == 0){
+            int[][] newSeed = new int[3][3];
+            System.arraycopy(currentState, 0, newSeed, 0, seed.length);
+            newSeed[2][0] = currentState[2][1];
+            newSeed[2][1] = 0;
+            eslis.add(new EpuzzleState(newSeed));
+        }
+
+        if (currentState[2][1] == 0){
+            int[][] newSeed = new int[3][3];
+            System.arraycopy(currentState, 0, newSeed, 0, seed.length);
+            newSeed[2][1] = currentState[2][0];
+            newSeed[2][0] = 0;
+            eslis.add(new EpuzzleState(newSeed));
+        }
+
+        if (currentState[2][1] == 0){
+            int[][] newSeed = new int[3][3];
+            System.arraycopy(currentState, 0, newSeed, 0, seed.length);
+            newSeed[2][1] = currentState[2][2];
+            newSeed[2][2] = 0;
+            eslis.add(new EpuzzleState(newSeed));
+        }
+
+        if (currentState[2][1] == 0){
+            int[][] newSeed = new int[3][3];
+            System.arraycopy(currentState, 0, newSeed, 0, seed.length);
+            newSeed[2][1] = currentState[1][1];
+            newSeed[1][1] = 0;
+            eslis.add(new EpuzzleState(newSeed));
+        }
+
+        if (currentState[2][2] == 0){
+            int[][] newSeed = new int[3][3];
+            System.arraycopy(currentState, 0, newSeed, 0, seed.length);
+            newSeed[2][2] = currentState[1][2];
+            newSeed[1][2] = 0;
+            eslis.add(new EpuzzleState(newSeed));
+        }
+
+        if (currentState[2][2] == 0){
+            int[][] newSeed = new int[3][3];
+            System.arraycopy(currentState, 0, newSeed, 0, seed.length);
+            newSeed[2][2] = currentState[2][1];
+            newSeed[2][1] = 0;
+            eslis.add(new EpuzzleState(newSeed));
+        }
+
+
         for (EpuzzleState es : eslis)
             slis.add((SearchState) es);
 
         return slis;
     }
+
+    public boolean sameState(SearchState s2) {
+        EpuzzleState es = (EpuzzleState) s2;
+    
+        return (Arrays.deepEquals(seed, es.get_seed()));
+      }
 
 }

@@ -54,8 +54,7 @@ public class EpuzzleState extends SearchState {
    */
 
     public ArrayList<SearchState> getSuccessors(Search searcher){
-        EpuzzleSearch eSearch = (EpuzzleSearch) searcher;
-        int[][] currentState = eSearch.getSeed();
+        int[][] currentState = seed;
 
         ArrayList<EpuzzleState> eslis = new ArrayList<EpuzzleState>(); 
         ArrayList<SearchState> slis = new ArrayList<SearchState>();

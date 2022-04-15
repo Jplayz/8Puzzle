@@ -74,25 +74,25 @@ public class EpuzzleState extends SearchState {
                     if (j + 1 < 3) {
                         // Moves empty to the right
                         swap(i, j, i, j + 1, rightSeed);
-                        eslis.add(new EpuzzleState(rightSeed, hamming(searcher)));
+                        eslis.add(new EpuzzleState(rightSeed, manhattan(searcher)));
                     }
 
                     if (j - 1 >= 0) {
                         // Moves empty to the left
                         swap(i, j, i, j - 1, leftSeed);
-                        eslis.add(new EpuzzleState(leftSeed, hamming(searcher)));
+                        eslis.add(new EpuzzleState(leftSeed, manhattan(searcher)));
                     }
 
                     if (i - 1 >= 0) {
                         // Moves empty up
                         swap(i, j, i - 1, j, upSeed);
-                        eslis.add(new EpuzzleState(upSeed, hamming(searcher)));
+                        eslis.add(new EpuzzleState(upSeed, manhattan(searcher)));
                     }
 
                     if (i + 1 < 3) {
                         // Moves empty down
                         swap(i, j, i + 1, j, downSeed);
-                        eslis.add(new EpuzzleState(downSeed, hamming(searcher)));
+                        eslis.add(new EpuzzleState(downSeed, manhattan(searcher)));
                     }
                 }
             }
@@ -117,6 +117,27 @@ public class EpuzzleState extends SearchState {
             }
         }
         return hamming;
+    }
+
+    public int manhattan(Search searcher) {
+        EpuzzleSearch esearcher = (EpuzzleSearch) searcher;
+        int[][] tar = esearcher.getTarget(); // get target
+        int manhattan = 0;
+
+        for (int ti = 0; ti < 3; ti++) {
+            for (int tj = 0; tj < 3; tj++) {
+                for (int ci = 0; ci < 3; ci++) {
+                    for (int cj = 0; cj < 3; cj++) {
+                        if (tar[ti][tj] == seed[ci][cj]) {
+                            manhattan += ci - ti;
+                            manhattan += cj - tj;
+                        }
+                    }
+                }
+            }
+        }
+
+        return manhattan;
     }
 
     public boolean sameState(SearchState s2) {

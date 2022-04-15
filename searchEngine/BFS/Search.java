@@ -44,10 +44,10 @@ public abstract class Search {
 			// print contents of open
 			System.out.println("iteration no " + iterationCount);
 			System.out.println("open is");
-			for (SearchNode nn : open) {
-				String nodestr = nn.toString();
-				System.out.println(nodestr);
-			}
+			// for (SearchNode nn : open) {
+			// 	String nodestr = nn.toString();
+			// 	System.out.println(nodestr);
+			// }
 
 			selectNode(strategy); // change from search1 - selectNode selects next node, given strategy
 			// makes it currentNode & removes it from open

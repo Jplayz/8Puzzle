@@ -1,3 +1,4 @@
+import java.lang.annotation.Target;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -12,9 +13,12 @@ public class EpuzzleState extends SearchState {
      * constructor
      * 
      * @param seed, the seed being input
+     * @param rc,   the estimated remaining cost
      */
-    public EpuzzleState(int[][] seedIn) {
+    public EpuzzleState(int[][] seedIn, int rc) {
         seed = seedIn;
+        localCost = 1;
+        estRemCost = rc;
     }
 
     /**
@@ -43,8 +47,8 @@ public class EpuzzleState extends SearchState {
      * @param searcher - the current search
      */
     public boolean goalPredicate(Search searcher) {
-        EpuzzleSearch jsearcher = (EpuzzleSearch) searcher;
-        int[][] tar = jsearcher.getTarget(); // get target
+        EpuzzleSearch esearcher = (EpuzzleSearch) searcher;
+        int[][] tar = esearcher.getTarget(); // get target
         return (Arrays.deepEquals(seed, tar));
     }
 
@@ -70,25 +74,25 @@ public class EpuzzleState extends SearchState {
                     if (j + 1 < 3) {
                         // Moves empty to the right
                         swap(i, j, i, j + 1, rightSeed);
-                        eslis.add(new EpuzzleState(rightSeed));
+                        eslis.add(new EpuzzleState(rightSeed, hamming(searcher)));
                     }
 
                     if (j - 1 >= 0) {
                         // Moves empty to the left
                         swap(i, j, i, j - 1, leftSeed);
-                        eslis.add(new EpuzzleState(leftSeed));
+                        eslis.add(new EpuzzleState(leftSeed, hamming(searcher)));
                     }
 
                     if (i - 1 >= 0) {
                         // Moves empty up
                         swap(i, j, i - 1, j, upSeed);
-                        eslis.add(new EpuzzleState(upSeed));
+                        eslis.add(new EpuzzleState(upSeed, hamming(searcher)));
                     }
 
                     if (i + 1 < 3) {
                         // Moves empty down
                         swap(i, j, i + 1, j, downSeed);
-                        eslis.add(new EpuzzleState(downSeed));
+                        eslis.add(new EpuzzleState(downSeed, hamming(searcher)));
                     }
                 }
             }
@@ -99,6 +103,20 @@ public class EpuzzleState extends SearchState {
             slis.add((SearchState) es);
 
         return slis;
+    }
+
+    public int hamming(Search searcher) {
+        EpuzzleSearch esearcher = (EpuzzleSearch) searcher;
+        int[][] tar = esearcher.getTarget(); // get target
+        int hamming = 0;
+
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (tar[i][j] == seed[i][j])
+                    hamming += 1;
+            }
+        }
+        return hamming;
     }
 
     public boolean sameState(SearchState s2) {

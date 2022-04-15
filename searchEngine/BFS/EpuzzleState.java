@@ -43,8 +43,8 @@ public class EpuzzleState extends SearchState {
      * @param searcher - the current search
      */
     public boolean goalPredicate(Search searcher) {
-        EpuzzleSearch jsearcher = (EpuzzleSearch) searcher;
-        int[][] tar = jsearcher.getTarget(); // get target
+        EpuzzleSearch esearcher = (EpuzzleSearch) searcher;
+        int[][] tar = esearcher.getTarget(); // get target
         return (Arrays.deepEquals(seed, tar));
     }
 

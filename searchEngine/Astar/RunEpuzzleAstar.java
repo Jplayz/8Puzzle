@@ -1,10 +1,7 @@
 public class RunEpuzzleAstar {
     public static void main(String[] arg) {
-         int s = 23456;
-        EpuzzGen gen = new EpuzzGen(s);
-
-        int d = 13;
-        int[][] puzz = gen.puzzGen(d); 
+        EpuzzGen gen = new EpuzzGen(23456);
+        int[][] puzz = gen.puzzGen(12); 
 
        // System.out.println(puzz[0][0]+" "+puzz[0][1]+" "+puzz[0][2]);
         //System.out.println(puzz[1][0]+" "+puzz[1][1]+" "+puzz[1][2]);

@@ -74,25 +74,25 @@ public class EpuzzleState extends SearchState {
                     if (j + 1 < 3) {
                         // Moves empty to the right
                         swap(i, j, i, j + 1, rightSeed);
-                        eslis.add(new EpuzzleState(rightSeed, manhattan(searcher)));
+                        eslis.add(new EpuzzleState(rightSeed, hamming(searcher)));
                     }
 
                     if (j - 1 >= 0) {
                         // Moves empty to the left
                         swap(i, j, i, j - 1, leftSeed);
-                        eslis.add(new EpuzzleState(leftSeed, manhattan(searcher)));
+                        eslis.add(new EpuzzleState(leftSeed, hamming(searcher)));
                     }
 
                     if (i - 1 >= 0) {
                         // Moves empty up
                         swap(i, j, i - 1, j, upSeed);
-                        eslis.add(new EpuzzleState(upSeed, manhattan(searcher)));
+                        eslis.add(new EpuzzleState(upSeed, hamming(searcher)));
                     }
 
                     if (i + 1 < 3) {
                         // Moves empty down
                         swap(i, j, i + 1, j, downSeed);
-                        eslis.add(new EpuzzleState(downSeed, manhattan(searcher)));
+                        eslis.add(new EpuzzleState(downSeed, hamming(searcher)));
                     }
                 }
             }
@@ -108,12 +108,12 @@ public class EpuzzleState extends SearchState {
     public int hamming(Search searcher) {
         EpuzzleSearch esearcher = (EpuzzleSearch) searcher;
         int[][] tar = esearcher.getTarget(); // get target
-        int hamming = 0;
+        int hamming = 9;
 
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 if (tar[i][j] == seed[i][j])
-                    hamming += 1;
+                    hamming -= 1;
             }
         }
         return hamming;
@@ -126,17 +126,23 @@ public class EpuzzleState extends SearchState {
 
         for (int ti = 0; ti < 3; ti++) {
             for (int tj = 0; tj < 3; tj++) {
+                System.out.println("Currently at targer("+ti+","+tj+")");
                 for (int ci = 0; ci < 3; ci++) {
                     for (int cj = 0; cj < 3; cj++) {
+                        System.out.println("Currently at seed("+ci+","+cj+")");
                         if (tar[ti][tj] == seed[ci][cj]) {
-                            manhattan += ci - ti;
-                            manhattan += cj - tj;
+                            System.out.println("Same values");
+                            int manhattan_i = ci - ti;
+                            int manhattan_j = cj - tj;
+                            int temp_manhattan = manhattan_i + manhattan_j;
+                            manhattan += temp_manhattan;
+                            System.out.println(manhattan);
                         }
                     }
                 }
             }
         }
-
+        System.out.println("Final Value"+manhattan);
         return manhattan;
     }
 

@@ -104,6 +104,11 @@ public class EpuzzleState extends SearchState {
         return slis;
     }
 
+    /**
+     * checkType
+     * 
+     * @param searcher - the current search
+     */
     public int checkType(Search searcher){
         EpuzzleSearch esearcher = (EpuzzleSearch) searcher;
         int value = 0;
@@ -116,6 +121,12 @@ public class EpuzzleState extends SearchState {
 
         return value;
     }
+
+    /**
+     * Hamming
+     * 
+     * @param esearcher - the current search, in the form EpuzzleSearch
+     */
 
     public int hamming(EpuzzleSearch esearcher) {
         
@@ -159,17 +170,37 @@ public class EpuzzleState extends SearchState {
         return manhattan;
     }
 
+    /**
+     * sameState
+     * Checks if the state is the same
+     * @param searcher - the current search
+     */
     public boolean sameState(SearchState s2) {
         EpuzzleState es = (EpuzzleState) s2;
 
         return (Arrays.deepEquals(seed, es.get_seed()));
     }
 
+     /**
+     * swap
+     * 
+     * @param ox - the first position of the array, x value
+     * @param oy - the first position of the array, y value
+     * @param nx - the second position to be swapped in the array, x value
+     * @param ny - the second position to be swapped in the array, y value
+     */
+
     public static void swap(int ox, int oy, int nx, int ny, int[][] array) {
         int temp = array[ox][oy];
         array[ox][oy] = array[nx][ny];
         array[nx][ny] = temp;
     }
+
+         /**
+     * swap
+     * 
+     * @param state - the current seed of the array
+     */
 
     public int[][] copyState(int[][] state) {
         int[][] copiedState = new int[3][3];
